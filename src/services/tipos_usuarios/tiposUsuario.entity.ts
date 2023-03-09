@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Permiso } from '../permisos/permiso.entity';
 
 @Entity({ name: 'tipos_usuario' })
 export class TiposUsuario {
@@ -14,6 +21,12 @@ export class TiposUsuario {
     default: 'A',
   })
   estado: string;
+
+  @OneToMany(() => Permiso, (permiso) => permiso.tiposUsuario, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'permisos' })
+  permisos: Permiso[];
 
   @Column({
     type: 'datetime',

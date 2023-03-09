@@ -12,7 +12,11 @@ export class Sesion {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Usuario, (usuario) => usuario.id, { nullable: false })
+  @ManyToOne(() => Usuario, (usuario) => usuario.id, {
+    nullable: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn({ name: 'usuario' })
   usuario: Usuario;
 

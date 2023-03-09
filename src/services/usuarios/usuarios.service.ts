@@ -13,9 +13,10 @@ export class UsuariosService {
     return this.usuarioRepository.findOne({
       relations: {
         centro: true,
-        tipo: true,
-        permisos: {
-          modulo: true,
+        tipo: {
+          permisos: {
+            modulo: true,
+          },
         },
       },
       where: {
