@@ -6,7 +6,7 @@ import { TiposUsuario } from './services/tipos_usuarios/tiposUsuario.entity';
 import { Usuario } from './services/usuarios/usuario.entity';
 
 export const AppConfig = () => ({
-  port: parseInt(process.env.SV_PORT) || 3000,
+  port: parseInt(process.env.PORT) || 3000,
   cors: process.env.SV_CORS === 'true',
   keyTokenIv: Buffer.from(process.env.SV_KEY_TOKEN_IV, 'hex'),
   keyTokenPassword: Buffer.from(process.env.SV_KEY_TOKEN_PASSWORD, 'hex'),
