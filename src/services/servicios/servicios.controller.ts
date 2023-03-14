@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, Param, Res } from '@nestjs/common';
+import { Controller, Post, Get, Body, Put, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { Servicio } from './servicio.entity';
 import { ServiciosService } from './servicio.service';
@@ -22,7 +22,7 @@ export class ServiciosController {
     const responseData = [];
 
     for (const servicio of servicios) {
-      const registrado = await this.serviciosService.verificarServicio(
+      const registrado = await this.serviciosService.verificar(
         servicio,
         fechaActual,
       );
@@ -49,6 +49,11 @@ export class ServiciosController {
       message: 'Datos Creados Correctamente',
       data: responseData,
     });
+  }
+
+  @Put('actualizar/:id')
+  actualizar(@Param('id') id: number, @Body() servicio: Servicio) {
+    return this.serviciosService.actualizar(id, servicio);
   }
 
   @Get('estado/:estado')

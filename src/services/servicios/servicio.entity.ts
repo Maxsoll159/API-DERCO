@@ -31,14 +31,35 @@ export class Servicio {
   @Column({
     type: 'char',
     length: 1,
-    default: 1,
+    default: '1',
   })
   estado: string;
 
   @Column({
+    type: 'char',
+    length: '1',
+    default: '0',
+  })
+  asistencia: string;
+
+  @Column({
+    type: 'time',
+    nullable: true,
+    name: 'fecha_cita',
+  })
+  fechaCita: string;
+
+  @Column({
     type: 'datetime',
-    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
     name: 'fecha_entrada',
   })
   fechaEntrada: string;
+
+  @Column({
+    type: 'datetime',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'fecha_registro',
+  })
+  fechaRegistro: string;
 }
