@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Equal, Repository } from 'typeorm';
 import { Usuario } from './usuario.entity';
 @Injectable()
 export class UsuariosService {
@@ -23,6 +23,24 @@ export class UsuariosService {
         correo: correo,
         estado: 'A',
       },
+    });
+  }
+
+  buscarPorTipo(tipoUsuario: number): Promise<Usuario[]> {
+    return this.usuarioRepository.find({
+      select: {
+        id: true,
+        nombres: true,
+      },
+      where: {
+        tipo: Equal(tipoUsuario),
+      },
+    });
+  }
+
+  buscarPorId(id: number): Promise<Usuario> {
+    return this.usuarioRepository.findOneBy({
+      id: id,
     });
   }
 }

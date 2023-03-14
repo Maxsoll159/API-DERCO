@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Modulo } from '../modulos/modulo.entity';
-import { TiposUsuario } from '../tipos_usuarios/tiposUsuario.entity';
+import { TipoUsuario } from '../tipos_usuarios/tiposUsuario.entity';
 
 @Entity({ name: 'permisos' })
 export class Permiso {
@@ -17,11 +17,11 @@ export class Permiso {
   @JoinColumn({ name: 'modulo' })
   modulo: Modulo;
 
-  @ManyToOne(() => TiposUsuario, (tiposUsuario) => tiposUsuario.id, {
+  @ManyToOne(() => TipoUsuario, (tiposUsuario) => tiposUsuario.id, {
     nullable: false,
   })
-  @JoinColumn({ name: 'tipo_usuario' })
-  tiposUsuario: TiposUsuario;
+  @JoinColumn({ name: 'tipos_usuario' })
+  tiposUsuario: TipoUsuario;
 
   @Column({
     type: 'char',
@@ -33,6 +33,7 @@ export class Permiso {
   @Column({
     type: 'datetime',
     default: () => 'CURRENT_TIMESTAMP',
+    name: 'fecha_registro',
   })
-  fecha_registro: string;
+  fechaRegistro: string;
 }

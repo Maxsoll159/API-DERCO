@@ -37,7 +37,7 @@ export class AppSesionMiddleware implements NestMiddleware {
     }
 
     const verificarPermiso = sesion.usuario.tipo.permisos.find(
-      (permiso) => permiso.modulo.url === request.url,
+      (permiso) => permiso.modulo.url === request.path,
     );
 
     if (verificarPermiso === undefined) {

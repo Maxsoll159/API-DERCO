@@ -27,6 +27,7 @@ export class Sesion {
     type: 'datetime',
     nullable: false,
     default: () => 'CURRENT_TIMESTAMP',
+    name: 'fecha_registro',
   })
-  fecha_registro: string;
+  fechaRegistro: string;
 }

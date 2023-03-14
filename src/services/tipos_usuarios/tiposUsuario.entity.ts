@@ -8,7 +8,7 @@ import {
 import { Permiso } from '../permisos/permiso.entity';
 
 @Entity({ name: 'tipos_usuario' })
-export class TiposUsuario {
+export class TipoUsuario {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -31,6 +31,7 @@ export class TiposUsuario {
   @Column({
     type: 'datetime',
     default: () => 'CURRENT_TIMESTAMP',
+    name: 'fecha_registro',
   })
-  fecha_registro: string;
+  fechaRegistro: string;
 }

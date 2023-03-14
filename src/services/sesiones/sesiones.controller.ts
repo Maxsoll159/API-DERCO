@@ -15,7 +15,7 @@ import { SesionesService } from './sesiones.service';
 
 @Controller('sesiones')
 export class SesionesController {
-  constructor(private readonly sesionService: SesionesService) {}
+  constructor(private readonly sesionesService: SesionesService) {}
 
   @Post('iniciar')
   async iniciar(
@@ -30,7 +30,7 @@ export class SesionesController {
       return response.status(200).json({
         statuscode: 200,
         message: 'Ya tienes una sesión iniciada',
-        data: this.sesionService.desencriptar(token),
+        data: this.sesionesService.desencriptar(token),
       });
     }
 
@@ -45,7 +45,7 @@ export class SesionesController {
       });
     }
 
-    const usuario = await this.sesionService.validarUsuario(
+    const usuario = await this.sesionesService.validarUsuario(
       dtoCredencialesUsuario.correo,
     );
 
@@ -62,8 +62,8 @@ export class SesionesController {
     sesion.ip = ip || request.socket.remoteAddress;
     sesion.usuario = usuario;
 
-    const sesionGuardada = await this.sesionService.iniciar(sesion);
-    token = this.sesionService.encriptarToken(sesionGuardada);
+    const sesionGuardada = await this.sesionesService.iniciar(sesion);
+    token = this.sesionesService.encriptarToken(sesionGuardada);
 
     if (sesionGuardada === null) {
       return response.status(500).json({
@@ -94,16 +94,16 @@ export class SesionesController {
     response.status(200).json({
       statusCode: 200,
       message: 'Sesion ya iniciada',
-      data: this.sesionService.desencriptar(token),
+      data: this.sesionesService.desencriptar(token),
     });
   }
 
   @Delete('cerrar')
   cerrar(@Req() request: Request, @Res() response: Response) {
     const token = request.cookies['token-sesion-derco'];
-    const data = this.sesionService.desencriptar(token);
+    const data = this.sesionesService.desencriptar(token);
 
-    const resultCerrar = this.sesionService.cerrar(data);
+    const resultCerrar = this.sesionesService.cerrar(data);
 
     if (resultCerrar === null) {
       return response.status(500).json({

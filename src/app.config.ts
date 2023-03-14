@@ -1,8 +1,9 @@
 import { Centro } from './services/centros/centro.entity';
 import { Modulo } from './services/modulos/modulo.entity';
 import { Permiso } from './services/permisos/permiso.entity';
+import { Servicio } from './services/servicios/servicio.entity';
 import { Sesion } from './services/sesiones/sesion.entity';
-import { TiposUsuario } from './services/tipos_usuarios/tiposUsuario.entity';
+import { TipoUsuario } from './services/tipos_usuarios/tiposUsuario.entity';
 import { Usuario } from './services/usuarios/usuario.entity';
 
 export const AppConfig = () => ({
@@ -18,7 +19,7 @@ export const AppConfig = () => ({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     logging: true,
-    entities: [Modulo, Permiso, TiposUsuario, Centro, Usuario, Sesion],
+    entities: [Modulo, Permiso, Servicio, TipoUsuario, Centro, Usuario, Sesion],
     migrations: ['/db/migrations'],
     migrationsTableName: 'migrations',
     synchronize: true,
