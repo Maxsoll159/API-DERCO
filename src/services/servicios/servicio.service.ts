@@ -13,13 +13,24 @@ export class ServiciosService {
   obtenerFecha() {
     const fechaActual = new Date();
 
-    return `${fechaActual.getFullYear()}-${
-      fechaActual.getUTCMonth() + 1
-    }-${fechaActual.getDate()}`;
+    const anio = fechaActual.getFullYear();
+    const mes = fechaActual.getMonth() + 1;
+    const dia = fechaActual.getDate();
+
+    return `${anio}-${mes < 10 ? 0 : ''}${mes}-${dia}`;
   }
 
   verificar(servicio: Servicio, fechaActual: string) {
-    return this.servicioService.find({
+    return this.servicioService.findOne({
+      select: {
+        asesor: {
+          id: true,
+          nombres: true,
+        },
+      },
+      relations: {
+        asesor: true,
+      },
       where: {
         nombres: servicio.nombres,
         placa: servicio.placa,
@@ -32,7 +43,7 @@ export class ServiciosService {
     });
   }
 
-  crear(servicio: Servicio) {
+  crear(servicio: Servicio): Promise<Servicio> {
     return this.servicioService.save(servicio);
   }
 
@@ -41,9 +52,13 @@ export class ServiciosService {
   }
 
   buscarPorEstado(estado: string, fechaActual: string) {
-    console.log(`${fechaActual}T00:00:00`);
-
     return this.servicioService.find({
+      select: {
+        asesor: {
+          id: true,
+          nombres: true,
+        },
+      },
       relations: {
         asesor: true,
       },

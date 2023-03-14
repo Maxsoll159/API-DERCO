@@ -63,6 +63,9 @@ export class SesionesController {
     sesion.usuario = usuario;
 
     const sesionGuardada = await this.sesionesService.iniciar(sesion);
+
+    delete sesionGuardada.usuario.clave;
+
     token = this.sesionesService.encriptarToken(sesionGuardada);
 
     if (sesionGuardada === null) {

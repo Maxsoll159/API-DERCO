@@ -50,5 +50,5 @@ export class Usuario {
     default: () => 'CURRENT_TIMESTAMP',
     name: 'fecha_registro',
   })
-  fechaRegistro: string;
+  fechaRegistro: Date;
 }

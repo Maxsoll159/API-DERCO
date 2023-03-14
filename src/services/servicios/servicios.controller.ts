@@ -27,19 +27,17 @@ export class ServiciosController {
         fechaActual,
       );
 
-      console.log(registrado.length);
-
-      if (registrado.length === 0) {
-        await this.serviciosService.crear(servicio);
+      if (registrado === null) {
+        const nuevoServicio = await this.serviciosService.crear(servicio);
 
         responseData.push({
           registradoAnteriormente: false,
-          data: servicio,
+          data: nuevoServicio,
         });
       } else {
         responseData.push({
           registradoAnteriormente: true,
-          data: servicio,
+          data: registrado,
         });
       }
     }
@@ -67,14 +65,6 @@ export class ServiciosController {
       estado,
       fechaActual,
     );
-
-    if (listServicios === undefined) {
-      return response.status(404).json({
-        statusCode: 404,
-        message: 'servicios con este estado no encontrados',
-        error: 'Servicios No encontrados',
-      });
-    }
 
     return response.status(200).json({
       statusCode: 200,

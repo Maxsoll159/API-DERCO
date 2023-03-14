@@ -27,8 +27,6 @@ export class SesionesService {
       cipher.final(),
     ]);
 
-    sesion.usuario.clave = '';
-
     return tokenBuffer.toString('base64');
   }
 

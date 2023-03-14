@@ -17,6 +17,7 @@ export class Modulo {
   @Column({
     type: 'datetime',
     default: () => 'CURRENT_TIMESTAMP',
+    name: 'fecha_registro',
   })
-  fecha_registro: string;
+  fechaRegistro: Date;
 }

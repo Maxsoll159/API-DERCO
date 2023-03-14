@@ -47,14 +47,14 @@ export class Servicio {
     nullable: true,
     name: 'fecha_cita',
   })
-  fechaCita: string;
+  fechaCita: Date;
 
   @Column({
     type: 'datetime',
     nullable: true,
     name: 'fecha_entrada',
   })
-  fechaEntrada: string;
+  fechaEntrada: Date;
 
   @Column({
     type: 'datetime',

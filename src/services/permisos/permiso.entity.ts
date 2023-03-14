@@ -35,5 +35,5 @@ export class Permiso {
     default: () => 'CURRENT_TIMESTAMP',
     name: 'fecha_registro',
   })
-  fechaRegistro: string;
+  fechaRegistro: Date;
 }
