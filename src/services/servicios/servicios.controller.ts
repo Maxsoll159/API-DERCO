@@ -27,19 +27,21 @@ export class ServiciosController {
         fechaActual,
       );
 
-      if (registrado === null) {
+      console.log(registrado.length);
+
+      if (registrado.length === 0) {
         await this.serviciosService.crear(servicio);
 
         responseData.push({
           registradoAnteriormente: false,
           data: servicio,
         });
+      } else {
+        responseData.push({
+          registradoAnteriormente: true,
+          data: servicio,
+        });
       }
-
-      responseData.push({
-        registradoAnteriormente: true,
-        data: servicio,
-      });
     }
 
     return response.status(200).json({

@@ -31,6 +31,7 @@ export class Servicio {
   @Column({
     type: 'char',
     length: 1,
+    default: 1,
   })
   estado: string;
 
