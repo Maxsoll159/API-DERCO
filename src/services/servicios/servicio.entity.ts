@@ -61,5 +61,5 @@ export class Servicio {
     default: () => 'CURRENT_TIMESTAMP',
     name: 'fecha_registro',
   })
-  fechaRegistro: string;
+  fechaRegistro: Date;
 }

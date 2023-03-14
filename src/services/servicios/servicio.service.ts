@@ -1,12 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  And,
-  Equal,
-  LessThanOrEqual,
-  MoreThanOrEqual,
-  Repository,
-} from 'typeorm';
+import { And, LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { Servicio } from './servicio.entity';
 
 @Injectable()
@@ -29,9 +23,9 @@ export class ServiciosService {
       where: {
         nombres: servicio.nombres,
         placa: servicio.placa,
-        fechaEntrada: And(
-          MoreThanOrEqual(`${fechaActual} 00-00-00`),
-          LessThanOrEqual(`${fechaActual} 23-59-59`),
+        fechaRegistro: And(
+          MoreThanOrEqual(new Date(`${fechaActual}T00:00:00`)),
+          LessThanOrEqual(new Date(`${fechaActual}T23:59:59`)),
         ),
         estado: '1',
       },
@@ -47,15 +41,17 @@ export class ServiciosService {
   }
 
   buscarPorEstado(estado: string, fechaActual: string) {
+    console.log(`${fechaActual}T00:00:00`);
+
     return this.servicioService.find({
       relations: {
         asesor: true,
       },
       where: {
-        estado: Equal(estado),
+        estado: estado,
         fechaRegistro: And(
-          MoreThanOrEqual(`${fechaActual} 00-00-00`),
-          LessThanOrEqual(`${fechaActual} 23-59-59`),
+          MoreThanOrEqual(new Date(`${fechaActual}T00:00:00`)),
+          LessThanOrEqual(new Date(`${fechaActual}T23:59:59`)),
         ),
       },
     });
