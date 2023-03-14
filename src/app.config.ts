@@ -13,6 +13,7 @@ export const AppConfig = () => ({
   keyTokenPassword: Buffer.from(process.env.SV_KEY_TOKEN_PASSWORD, 'hex'),
   database: {
     type: 'mysql',
+    timezone: process.env.SV_TIME_ZONE,
     host: process.env.DB_HOST,
     port: parseInt(process.env.DB_PORT),
     username: process.env.DB_USER,
