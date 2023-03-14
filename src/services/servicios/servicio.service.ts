@@ -53,7 +53,7 @@ export class ServiciosService {
       },
       where: {
         estado: Equal(estado),
-        fechaEntrada: And(
+        fechaRegistro: And(
           MoreThanOrEqual(`${fechaActual} 00-00-00`),
           LessThanOrEqual(`${fechaActual} 23-59-59`),
         ),
