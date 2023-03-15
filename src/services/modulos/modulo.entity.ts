@@ -13,11 +13,4 @@ export class Modulo {
 
   @Column({ type: 'varchar' })
   icono: string;
-
-  @Column({
-    type: 'datetime',
-    default: () => 'CURRENT_TIMESTAMP',
-    name: 'fecha_registro',
-  })
-  fechaRegistro: Date;
 }

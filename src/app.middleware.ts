@@ -20,7 +20,7 @@ export class AppSesionMiddleware implements NestMiddleware {
       });
     }
 
-    const sesion = this.sesionesService.desencriptar(token);
+    const sesion = this.sesionesService.desencriptarToken(token);
 
     if (sesion.ip !== ip) {
       return response

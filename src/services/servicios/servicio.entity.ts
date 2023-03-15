@@ -5,6 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Centro } from '../centros/centro.entity';
 import { Usuario } from '../usuarios/usuario.entity';
 
 @Entity({ name: 'servicios' })
@@ -37,10 +38,17 @@ export class Servicio {
 
   @Column({
     type: 'char',
-    length: '1',
-    default: '0',
+    length: 1,
+    default: '1',
   })
   asistencia: string;
+
+  @ManyToOne(() => Centro, (centro) => centro.id, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn({ name: 'centro' })
+  centro: Centro;
 
   @Column({
     type: 'time',

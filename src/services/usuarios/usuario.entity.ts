@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Centro } from '../centros/centro.entity';
-import { TipoUsuario } from '../tipos_usuarios/tiposUsuario.entity';
+import { TiposUsuario } from '../tipos_usuarios/tiposUsuario.entity';
 
 @Entity({ name: 'usuarios' })
 export class Usuario {
@@ -28,11 +28,11 @@ export class Usuario {
   @Column({ type: 'char', length: 8, unique: true })
   dni: string;
 
-  @ManyToOne(() => TipoUsuario, (tiposUsuario) => tiposUsuario.id, {
+  @ManyToOne(() => TiposUsuario, (tiposUsuario) => tiposUsuario.id, {
     nullable: false,
   })
   @JoinColumn({ name: 'tipo' })
-  tipo: TipoUsuario;
+  tipo: TiposUsuario;
 
   @ManyToOne(() => Centro, (centro) => centro.id, { nullable: false })
   @JoinColumn({ name: 'centro' })

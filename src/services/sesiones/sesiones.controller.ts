@@ -30,7 +30,7 @@ export class SesionesController {
       return response.status(200).json({
         statuscode: 200,
         message: 'Ya tienes una sesión iniciada',
-        data: this.sesionesService.desencriptar(token),
+        data: this.sesionesService.desencriptarToken(token),
       });
     }
 
@@ -97,14 +97,14 @@ export class SesionesController {
     response.status(200).json({
       statusCode: 200,
       message: 'Sesion ya iniciada',
-      data: this.sesionesService.desencriptar(token),
+      data: this.sesionesService.desencriptarToken(token),
     });
   }
 
   @Delete('cerrar')
   cerrar(@Req() request: Request, @Res() response: Response) {
     const token = request.cookies['token-sesion-derco'];
-    const data = this.sesionesService.desencriptar(token);
+    const data = this.sesionesService.desencriptarToken(token);
 
     const resultCerrar = this.sesionesService.cerrar(data);
 

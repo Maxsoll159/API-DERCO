@@ -16,18 +16,4 @@ export class Centro {
 
   @Column({ type: 'varchar' })
   distrito: string;
-
-  @Column({
-    type: 'char',
-    length: 1,
-    default: 'A',
-  })
-  estado: string;
-
-  @Column({
-    type: 'datetime',
-    default: () => 'CURRENT_TIMESTAMP',
-    name: 'fecha_registro',
-  })
-  fechaRegistro: Date;
 }

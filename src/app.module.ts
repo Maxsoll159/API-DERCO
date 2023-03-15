@@ -5,7 +5,6 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppConfig } from './app.config';
 import { AppSesionMiddleware } from './app.middleware';
@@ -15,7 +14,7 @@ import { SesionesModule } from './services/sesiones/sesiones.module';
 import { SesionesService } from './services/sesiones/sesiones.service';
 import { UsuariosModule } from './services/usuarios/usuarios.module';
 import { UsuariosService } from './services/usuarios/usuarios.service';
-import { TasksModule } from './tasks/tasks.module';
+import { UtilsModule } from './services/util/utils.module';
 
 @Module({
   imports: [
@@ -27,11 +26,10 @@ import { TasksModule } from './tasks/tasks.module';
       imports: [ConfigModule],
       useClass: DatabaseConfig,
     }),
-    ScheduleModule.forRoot(),
     SesionesModule,
     UsuariosModule,
     ServiciosModule,
-    TasksModule,
+    UtilsModule,
   ],
   providers: [SesionesService, UsuariosService],
   controllers: [],

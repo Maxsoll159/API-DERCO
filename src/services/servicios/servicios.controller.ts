@@ -1,5 +1,14 @@
-import { Controller, Post, Get, Body, Put, Param, Res } from '@nestjs/common';
-import { Response } from 'express';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Put,
+  Param,
+  Res,
+  Req,
+} from '@nestjs/common';
+import { Response, Request } from 'express';
 import { Servicio } from './servicio.entity';
 import { ServiciosService } from './servicio.service';
 
@@ -8,7 +17,15 @@ export class ServiciosController {
   constructor(private readonly serviciosService: ServiciosService) {}
 
   @Post('crear')
-  async crear(@Body() servicios: Servicio[], @Res() response: Response) {
+  async crear(
+    @Body() servicios: Servicio[],
+    @Res() response: Response,
+    @Req() request: Request,
+  ) {
+    const data = this.serviciosService.desencriptarToken(
+      request.cookies['token-sesion-derco'],
+    );
+
     if (servicios === undefined) {
       return response.status(400).json({
         statusCode: 400,
@@ -17,15 +34,12 @@ export class ServiciosController {
       });
     }
 
-    const fechaActual = this.serviciosService.obtenerFecha();
-
     const responseData = [];
 
     for (const servicio of servicios) {
-      const registrado = await this.serviciosService.verificar(
-        servicio,
-        fechaActual,
-      );
+      servicio.centro = data.usuario.centro;
+
+      const registrado = await this.serviciosService.verificar(servicio);
 
       if (registrado === null) {
         const nuevoServicio = await this.serviciosService.crear(servicio);
@@ -44,26 +58,38 @@ export class ServiciosController {
 
     return response.status(200).json({
       statusCode: 200,
-      message: 'Datos Creados Correctamente',
+      message: 'Servicios Creados Correctamente',
       data: responseData,
     });
   }
 
   @Put('actualizar/:id')
-  actualizar(@Param('id') id: number, @Body() servicio: Servicio) {
-    return this.serviciosService.actualizar(id, servicio);
+  async actualizar(
+    @Param('id') id: number,
+    @Body() servicio: Servicio,
+    @Res() response: Response,
+  ) {
+    await this.serviciosService.actualizar(id, servicio);
+
+    response.status(200).json({
+      statusCode: 200,
+      message: 'Servicio actualizado correctamente',
+    });
   }
 
   @Get('estado/:estado')
   async buscarPorEstado(
     @Param('estado') estado: string,
     @Res() response: Response,
+    @Req() request: Request,
   ) {
-    const fechaActual = this.serviciosService.obtenerFecha();
+    const data = this.serviciosService.desencriptarToken(
+      request.cookies['token-sesion-derco'],
+    );
 
     const listServicios = await this.serviciosService.buscarPorEstado(
       estado,
-      fechaActual,
+      data.usuario.centro,
     );
 
     return response.status(200).json({
