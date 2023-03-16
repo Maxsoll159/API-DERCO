@@ -39,6 +39,8 @@ export class AppSesionMiddleware implements NestMiddleware {
     const verificarPermiso = sesion.usuario.tipo.permisos.find(
       (permiso) => permiso.modulo.url === request.path,
     );
+    console.log('path => ', request.path);
+    console.log('ruta => ', verificarPermiso);
 
     if (verificarPermiso === undefined) {
       return response.status(403).json({
