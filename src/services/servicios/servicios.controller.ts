@@ -87,10 +87,17 @@ export class ServiciosController {
       request.cookies['token-sesion-derco'],
     );
 
-    const listServicios = await this.serviciosService.buscarPorEstado(
-      estado,
-      data.usuario.centro,
-    );
+    const listServicios =
+      data.usuario.tipo.id !== 3
+        ? await this.serviciosService.buscarPorEstado(
+            estado,
+            data.usuario.centro,
+          )
+        : await this.serviciosService.buscarPorEstadoAsesor(
+            estado,
+            data.usuario.centro,
+            data.usuario,
+          );
 
     return response.status(200).json({
       statusCode: 200,
